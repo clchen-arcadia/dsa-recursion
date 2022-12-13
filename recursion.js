@@ -53,17 +53,27 @@ function findIndex(arr, val, i = 0) {
 
 /** gatherStrings: given an object, return an array of all of the string values. */
 
-function gatherStrings(obj, strings = []) {
-  if (Object.keys(obj).length === 0) return; //TODO:
-  if (typeof obj[Object.keys(obj)[0]] === "string") {
-    strings.push(obj[Object.keys(obj)[0]]);
-  }
-  if (typeof obj[Object.keys(obj)[0]] === "object") {
-    gatherStrings(obj[Object.keys(obj)[0]], strings);
+function gatherStrings(obj) {
+  if (Object.keys(obj).length === 0) return [];
+
+  const key = Object.keys(obj)[0];
+  const value = obj[key];
+
+  if (typeof value === "string") {
+    delete obj[key];
+    return [value].concat(gatherStrings(obj));
   }
 
-  delete obj[Object.keys(obj)[0]];
-  return gatherStrings(obj, strings);
+  // else if (typeof value === "object") {
+  //   const nestOutput = gatherStrings(value);
+  //   delete obj[key];
+  //   return nestOutput;
+  // }
+
+  else {
+    delete obj[key];
+    return gatherStrings(obj);
+  }
 }
 
 // FURTHER STUDY
@@ -71,12 +81,12 @@ function gatherStrings(obj, strings = []) {
 /** binarySearch: given a sorted array of numbers, and a value,
  * return true if val is in array, false if not present). */
 
-function binarySearch(arr, val) {}
+function binarySearch(arr, val) { }
 
 /** binarySearch: given a sorted array of numbers, and a value,
  * return the index of that value (or -1 if val is not present). */
 
-function binarySearchIndex(arr, val) {}
+function binarySearchIndex(arr, val) { }
 
 // you might find the above two problems easier if you change the function signature to:
 //

@@ -96,6 +96,9 @@ describe("gatherStrings", function() {
       color: "black",
       barks: false
     };
+    console.log("test1", gatherStrings(whiskey).sort());
+    console.log("test1", Array.isArray(gatherStrings(whiskey).sort()));
+    console.log("test1", gatherStrings(whiskey).sort().length);
     expect(gatherStrings(whiskey).sort()).toEqual(["Whiskey", "popcorn", "black"].sort());
   });
 
@@ -118,6 +121,7 @@ describe("gatherStrings", function() {
         favoriteString: "nice!"
       }
     };
+    console.log("test2", gatherStrings(nestedObj).sort());
     expect(gatherStrings(nestedObj).sort()).toEqual(["Lester", "Testowitz", "you made it!", "nice!"].sort());
   });
 });
