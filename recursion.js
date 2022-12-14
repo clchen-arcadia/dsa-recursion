@@ -79,12 +79,38 @@ function gatherStrings(obj) {
 /** binarySearch: given a sorted array of numbers, and a value,
  * return true if val is in array, false if not present). */
 
-function binarySearch(arr, val) { }
+function binarySearch(arr, val, left = 0, right = arr.length) {
+  const idx = Math.floor((left + right) / 2);
+
+  if (arr[idx] === val) {
+    return true;
+  }
+  if (right === 0 || left === arr.length - 1) {
+    return false;
+  }
+  if (arr[idx] < val) {
+    return binarySearch(arr, val, idx, right);
+  }
+  else {
+    return binarySearch(arr, val, left, idx);
+  }
+}
 
 /** binarySearch: given a sorted array of numbers, and a value,
  * return the index of that value (or -1 if val is not present). */
 
-function binarySearchIndex(arr, val) { }
+function binarySearchIndex(arr, val, left = 0, right = arr.length) {
+  const idx = Math.floor((left + right) / 2);
+
+  if (arr[idx] === val) return idx;
+  if (right === 0 || left === arr.length - 1) return -1;
+  if (arr[idx] < val) {
+    return binarySearchIndex(arr, val, idx, right);
+  }
+  else {
+    return binarySearchIndex(arr, val, left, idx);
+  }
+}
 
 // you might find the above two problems easier if you change the function signature to:
 //
