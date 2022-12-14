@@ -54,26 +54,24 @@ function findIndex(arr, val, i = 0) {
 /** gatherStrings: given an object, return an array of all of the string values. */
 
 function gatherStrings(obj) {
-  if (Object.keys(obj).length === 0) return [];
+  // NOTE: don't mutate the object! we prev used delete operator. Problems!
 
-  const key = Object.keys(obj)[0];
-  const value = obj[key];
+  let outputStrings = [];
 
-  if (typeof value === "string") {
-    delete obj[key];
-    return [value].concat(gatherStrings(obj));
+  for (let key in obj) {
+    if (typeof obj[key] === 'string') {
+      outputStrings.push(obj[key]);
+    }
+    if (
+      typeof obj[key] === 'object'
+      && !Array.isArray(obj[key])
+      && obj[key] !== null
+    ) {
+      outputStrings = outputStrings.concat(gatherStrings(obj[key]));
+    }
   }
 
-  // else if (typeof value === "object") {
-  //   const nestOutput = gatherStrings(value);
-  //   delete obj[key];
-  //   return nestOutput;
-  // }
-
-  else {
-    delete obj[key];
-    return gatherStrings(obj);
-  }
+  return outputStrings;
 }
 
 // FURTHER STUDY
